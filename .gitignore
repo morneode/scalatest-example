@@ -1,0 +1,35 @@
+# scala
+*.class
+*.log
+lib/
+target
+
+# intellij
+*.iml
+*.ipr
+*.iws
+.idea
+out
+*.log
+
+# macos
+.DS_Store
+
+# sbt
+# (may want to keep parts of 'project')
+bin/
+target/
+build/
+
+# eclipse
+build
+.classpath
+.project
+.settings
+.worksheet
+
+# other?
+.history
+.scala_dependencies
+.cache
+.cache-main
