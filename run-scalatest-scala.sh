@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # https://stackoverflow.com/questions/22075534/how-do-i-set-the-classpath-when-using-the-scalatest-runner
 # http://www.scalatest.org/user_guide/using_the_runner
 
@@ -9,17 +10,23 @@ export SCALACTIC=$IVY2/org.scalactic/scalactic_2.12/bundles/scalactic_2.12-3.0.5
 export PACKAGE_JAR=/opt/jemstep/code/scalatest-example/target/scala-2.12/scalatest-example_2.12-0.1.0-SNAPSHOT.jar
 export PACKAGE_TEST_JAR=/opt/jemstep/code/scalatest-example/target/scala-2.12/scalatest-example_2.12-0.1.0-SNAPSHOT-tests.jar
 
-export DEPS=$(sbt --error "export compile:dependencyClasspath")
-echo $DEPS
-export DEPSTEST=$(sbt --error "export test:fullClasspath")
-echo $DEPSTEST
+function getSBTpaths {
+    SCALADEPS=$(sbt --error "export compile:dependencyClasspath")
+    echo $SCALADEPS
+    SCALA_TEST_DEPS=$(sbt --error "export test:fullClasspath")
+    echo $SCALA_TEST_DEPS
+}
 
 function buildScala {
     echo building project
     sbt "compile;test:compile;package;test:package"
 }
 
-buildScala
+# getSBTpaths
+# buildScala
+SCALA_TEST_DEPS=/opt/jemstep/code/scalatest-example/target/scala-2.12/test-classes:/opt/jemstep/code/scalatest-example/target/scala-2.12/classes:/opt/jemstep/code/scalatest-example/lib/scala-library-2.12.1.jar:/opt/jemstep/code/scalatest-example/lib/scalatest_2.12-3.0.5.jar:/Users/odendm/.sbt/boot/scala-2.12.10/lib/scala-library.jar:/Users/odendm/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest_2.12/3.0.5/scalatest_2.12-3.0.5.jar:/Users/odendm/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.5/scalactic_2.12-3.0.5.jar:/Users/odendm/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.6/scala-xml_2.12-1.0.6.jar:/Users/odendm/.sbt/boot/scala-2.12.10/lib/scala-reflect.jar
+
+echo $SCALA_TEST_DEPS
 
 # And then run tests:
 TARGETDIR=./target/scala-2.12
@@ -29,11 +36,11 @@ TARGETPATH=$TARGETDIR/test-classes
 PROJECTCLASSES=$PACKAGE_JAR
 
 # DEPENDANCIES=$SCALATEST:$SCALACTIC:$PROJECTCLASSES
-DEPENDANCIES=$DEPSTEST:$PROJECTCLASSES
+DEPENDANCIES=$SCALA_TEST_DEPS:$PROJECTCLASSES
 # DEPENDANCIES=$SCALATEST:$SCALACTIC
 
-# scala -classpath $DEPSTEST:$JARFILE org.scalatest.tools.Runner -R $JARFILE -o -s CubeCalculatorTest
-# scala -classpath $DEPSTEST:$PACKAGE:$JARFILE org.scalatest.tools.Runner -R $JARFILE -o -s CubeCalculatorTest
+# scala -classpath $SCALA_TEST_DEPS:$JARFILE org.scalatest.tools.Runner -R $JARFILE -o -s CubeCalculatorTest
+# scala -classpath $SCALA_TEST_DEPS:$PACKAGE:$JARFILE org.scalatest.tools.Runner -R $JARFILE -o -s CubeCalculatorTest
 # scala -classpath $SCALATEST:$SCALACTIC:$PACKAGE_JAR:$PACKAGE_TEST_JAR org.scalatest.tools.Runner -R -o -s CubeCalculatorTest
 # scala -classpath $SCALATEST:$SCALACTIC:$PACKAGE_TEST_JAR:$PACKAGE_JAR org.scalatest.tools.Runner -R $PACKAGE_TEST_JAR -o -s CubeCalculatorTest
 # scala -cp $SCALATEST:$SCALACTIC:$PACKAGE_JAR:$PACKAGE_TEST_JAR org.scalatest.tools.Runner -R $PACKAGE_TEST_JAR -o -s CubeCalculatorTest
