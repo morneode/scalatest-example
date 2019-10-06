@@ -12,7 +12,9 @@ export PACKAGE=/opt/jemstep/code/scalatest-example/target/scala-2.12/scalatest-e
 export PACKAGETEST=/opt/jemstep/code/scalatest-example/target/scala-2.12/scalatest-example_2.12-0.1.0-SNAPSHOT-tests.jar
 
 export DEPS=$(sbt --error "export compile:dependencyClasspath")
-export DEPSTEST=$(sbt --error "export test:dependencyClasspath")
+echo $DEPS
+export DEPSTEST=$(sbt --error "export test:fullClasspath")
+echo $DEPSTEST
 
 export CLASSPATH=$SCALATEST:$SCALACTIC:$SCALALIB
 # export CLASSPATH=$SCALATEST:$SCALACTIC:$SCALALIB:$PACKAGE
