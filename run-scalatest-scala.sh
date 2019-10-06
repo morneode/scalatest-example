@@ -25,8 +25,11 @@ DEPENDANCIES=$DEPSTEST:$PROJECTCLASSES
 # scala -classpath $SCALATEST:$SCALACTIC:$PACKAGE:$PACKAGETEST org.scalatest.tools.Runner -R -o -s CubeCalculatorTest
 # scala -classpath $SCALATEST:$SCALACTIC:$PACKAGETEST:$PACKAGE org.scalatest.tools.Runner -R $PACKAGETEST -o -s CubeCalculatorTest
 # scala -cp $SCALATEST:$SCALACTIC:$PACKAGE:$PACKAGETEST org.scalatest.tools.Runner -R $PACKAGETEST -o -s CubeCalculatorTest
+echo running the tests one-by-one
 scala -classpath $DEPENDANCIES org.scalatest.tools.Runner -R $TARGETPATH -o -s CubeCalculatorTest;
 scala -classpath $DEPENDANCIES org.scalatest.tools.Runner -R $TARGETPATH -o -s ExampleSpec;
+echo running all in path
+scala -classpath $DEPENDANCIES org.scalatest.tools.Runner -R $TARGETPATH -o;
 
 # $SCALATEST:$SCALACTIC:$PACKAGE:$PACKAGETEST
 # scala -classpath $SCALATEST:$SCALACTIC:$PACKAGE:$PACKAGETEST org.scalatest.tools.Runner -R $PACKAGETEST -o -s CubeCalculatorTest
