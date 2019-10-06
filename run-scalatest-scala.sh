@@ -1,5 +1,6 @@
 #!/bin/bash
 # https://stackoverflow.com/questions/22075534/how-do-i-set-the-classpath-when-using-the-scalatest-runner
+# http://www.scalatest.org/user_guide/using_the_runner
 
 export IVY2=/Users/odendm/.ivy2/cache
 export SCALATEST=$IVY2/org.scalatest/scalatest_2.12/bundles/scalatest_2.12-3.0.5.jar
@@ -42,7 +43,7 @@ scala -classpath $DEPENDANCIES org.scalatest.tools.Runner -R $TARGETPATH -o -s C
 echo running ExampleSpec
 scala -classpath $DEPENDANCIES org.scalatest.tools.Runner -R $TARGETPATH -o -s ExampleSpec;
 echo running all in path
-scala -classpath $DEPENDANCIES org.scalatest.tools.Runner -R $TARGETPATH -o;
+scala -classpath $DEPENDANCIES org.scalatest.tools.Runner -R $TARGETPATH -oWD;
 
 # $SCALATEST:$SCALACTIC:$PACKAGE_JAR:$PACKAGE_TEST_JAR
 # scala -classpath $SCALATEST:$SCALACTIC:$PACKAGE_JAR:$PACKAGE_TEST_JAR org.scalatest.tools.Runner -R $PACKAGE_TEST_JAR -o -s CubeCalculatorTest
