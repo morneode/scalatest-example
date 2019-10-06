@@ -11,5 +11,8 @@ export SCALALIB=$IVY2/org.scala-lang/scala-library/jars/scala-library-2.12.1.jar
 export PACKAGE=/opt/jemstep/code/scalatest-example/target/scala-2.12/scalatest-example_2.12-0.1.0-SNAPSHOT.jar
 export PACKAGETEST=/opt/jemstep/code/scalatest-example/target/scala-2.12/scalatest-example_2.12-0.1.0-SNAPSHOT-tests.jar
 
+export DEPS=$(sbt --error "export compile:dependencyClasspath")
+export DEPSTEST=$(sbt --error "export test:dependencyClasspath")
+
 export CLASSPATH=$SCALATEST:$SCALACTIC:$SCALALIB
 # export CLASSPATH=$SCALATEST:$SCALACTIC:$SCALALIB:$PACKAGE
