@@ -9,6 +9,15 @@ lazy val root = (project in file(".")).
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % Test
 
+val printTests = taskKey[Unit]("something")
+
+printTests := {
+  val tests = (definedTests in Test).value
+  tests map { t =>
+    println(t.name)
+  }
+}
+
 // assemblyOption in (Compile, assembly) := (assemblyOption in (Compile, assembly)).value.copy(includeScala = false)
 
 // Project.inConfig(Test)(baseAssemblySettings)
